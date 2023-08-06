@@ -756,6 +756,10 @@ h2.delete
   %right-col + %left-col {
     margin-top: $main-padding;
   }
+
+  .highlight + p {
+    margin-top: 20px;
+  }
 }
 
 .highlight .c, .highlight .cm, .highlight .c1, .highlight .cs {
