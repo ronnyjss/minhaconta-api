@@ -1,0 +1,64 @@
+## <b class="tagget">GET</b> Listar clientes
+
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'get',
+    descricao: 'Para listar clientes',
+    url: "\t\t\t   => '#{current_page.data.url}/cliente'\n"
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'cliente',
+    codigo: 200,
+    mensagens: ['SUC055K01'],
+    itens: [{
+        id: "e3eb01524dd35282c9910a9473c34e8f",
+        cpf: "752.073.050-69",
+        nome: "Antonio Vitor Nunes",
+        email: "antonio_nunes@i9pneus.com.br",
+        contato: "(54) 98330-2382",
+        endereco: {
+            cep: "95050-290",
+            logradouro: "Rua Mário Behring",
+            numero: "871",
+            complemento: nil,
+            bairro: "Jardim América",
+            cidade: 4305108,
+        },
+        data: {
+            aniversario: '10/05/1955',
+            criado: '01/01/2023 04:34:00',
+            atualizado: '03/01/2023 04:34:00',
+        }
+    }]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'cliente',
+    codigo: 400,
+    mensagens: ['ERR05B402']
+} %>
+
+<code><%= current_page.data.url %>/cliente</code>
+
+Responsável por retornar uma lista de todos os clientes(pagador) cadastrados no banco de dados da API do Minhaconta.
+É possível utilizar essa rota para obter uma visão geral de todos os clientes cadastrados ou para realizar pesquisas específicas, filtrando os resultados de acordo com critérios pré-definidos (por exemplo, por CPF ou nome).
+Além disso, a rota permite ordenar os resultados por diferentes campos (como data de aniversário ou data de criação) e dividi-los em páginas para facilitar a visualização.
+
+Ao acessar a rota, os seguintes dados são retornados para cada cliente: CPF, nome completo, e-mail, telefone, endereço (incluindo CEP, logradouro, número, complemento, bairro e cidade), e informações de data (como data de aniversário, data de criação e data de atualização).
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/consultas.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC055K01',
+
+        'ERR05B401', 'ERR05B402', 'ERR05B403',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

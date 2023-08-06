@@ -1,0 +1,69 @@
+## <b class="tagget">GET</b> Detalhes do Favorecido
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/favorecido/'
+            . $objParametro->url->favorecido,
+Conteudo
+
+parametro_url = <<-Conteudo
+        'favorecido' => '33ef65d0ebee16d2a4978fb2b1cb48bf',
+Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'get',
+    descricao: 'Para detalhes de um favorecido',
+    url: url,
+    parametro_url: parametro_url
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'favorecido',
+    codigo: 200,
+    mensagens: ['SUC0D5K01'],
+    itens: [{
+        id: '33ef65d0ebee16d2a4978fb2b1cb48bf',
+        nome: 'Isadora Jaqueline Cavalcanti',
+        cpf: '145.952.302-49',
+        conta: '123456-1',
+    }]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'favorecido',
+    codigo: 404,
+    mensagens: ['ERR0DB801']
+} %>
+
+<code><%= current_page.data.url %>/favorecido/<b>{favorecido}</b></code>
+
+Retorna as informações do favorecido cadastrado em nosso sistema.
+Essas informações incluem o ID do favorecido, o nome, CPF e Nº da conta no Minhaconta.
+Esse recurso é útil para obter informações sobre os favorecidos que participam de um rateio de cobrança ou para verificar se um determinado favorecido está cadastrado em nosso sistema.
+O acesso a esse recurso é permitido apenas para usuários autenticados e autorizados.
+
+<aside class="notice">
+    Lembrete - Por motivos de segurança, há uma 'Penalização' que sera aplicada a cada vez que um retorno 404 for recebido nessa rota, ou seja, será necessário esperar um determinado período entre cada requisição em caso de erro.
+    Isso evitara excesso de uso e garantir a integridade dos dados pessoais.
+</aside>
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+favorecido | Identificador único do favorecido.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC0D5K01',
+
+        'ERR0DB801', 'ERR0DBX02',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

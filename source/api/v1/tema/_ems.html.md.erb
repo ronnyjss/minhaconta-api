@@ -1,0 +1,21 @@
+<%
+    if !defined?(descricao)
+        descricao = 'O objetivo da EMS é listar as mensagens que serão apresentadas como resposta a alguma ação.'
+    end
+
+    strMensagens = ''
+    mensagens.each do |codigo|
+        if defined?(current_page.data.ems_sucesso[codigo].mensagem)
+            strMensagens += "#{codigo} | #{current_page.data.ems_sucesso[codigo].codigo || ''} | #{current_page.data.ems_sucesso[codigo].mensagem || ''}\n"
+        elsif defined?(current_page.data.ems_erro[codigo].mensagem)
+            strMensagens += "#{codigo} | #{current_page.data.ems_erro[codigo].codigo || ''} | #{current_page.data.ems_erro[codigo].mensagem || ''}\n"
+        end
+    end
+%>
+### Especificação de Mensagens do Sistema
+
+<%= descricao %>
+
+Código   | Http | Mensagem
+-------- | ---- | --------
+<%= strMensagens %>

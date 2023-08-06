@@ -1,0 +1,96 @@
+## <b class="tagget">GET</b> Listar Cobranças
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/beneficiario/'
+            . $objParametro->url->beneficiario
+            . '/cobranca',
+Conteudo
+
+parametro_url = <<-Conteudo
+        'beneficiario' => '224122d4f831405790df20f3b4e3677f',
+Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'get',
+    descricao: 'Para detalhes de uma cobrança',
+    url: url,
+    parametro_url: parametro_url
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    codigo: 200,
+    mensagens: ['SUC0A5K01'],
+    servico: 'cobranca',
+    itens: [{
+        id: 'd67549df30f4395874e6ab66e08cc9e2',
+        cliente: 'e3eb01524dd35282c9910a9473c34e8f',
+        valor: 300.00,
+        vencimento: '25/01/2023',
+        data: {
+            adicionado: '02/01/2023T12:45',
+            atualizado: '02/01/2023T12:45',
+        },
+        status: 'pendente',
+        descricao: 'Mensalidade 01/22 - Antonio Vitor Nunes',
+        referencia: '72568',
+        desconto: [
+            valor: 100.00,
+            limite: '25/01/2023'
+        ],
+        rateio: [
+            {
+                favorecido: '33ef65d0ebee16d2a4978fb2b1cb48bf',
+                porcentagem: 12
+            },
+            {
+                favorecido: 'c3211bf3836cb627f52311d723381fc7',
+                porcentagem: 35
+            },
+            {
+                favorecido: '57624e8d37e18ac77b254ac004a8ab0d',
+                porcentagem: 1
+            }
+        ]
+    }]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    codigo: 404,
+    mensagens: ['ERR05B403'],
+    servico: 'cobranca',
+    itens: []
+} %>
+
+<code><%= current_page.data.url %>/beneficiario/<b>{beneficiario}</b>/cobranca</code>
+
+Permite o acesso a uma lista com todas as cobranças cadastradas por um beneficiario.
+É possível [filtrar](/v1/#filtrar-consulta), [ordenar](/v1/#ordenar-consulta) e [paginar](/v1/#paginar-consulta) as cobranças de acordo com os parâmetros especificados na requisição.
+O retorno da requisição será uma lista com os detalhes de cada cobrança, incluindo o id, o cliente, o valor, a data de vencimento, a descrição, a referência, os descontos e o rateio.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+beneficiario | id do beneficiário responsável pelo lançamento da cobrança.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/consultas.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC0A5K01',
+
+        'ERR09B502',
+
+        'ERR01B802',
+
+        'ERR05B401', 'ERR05B402', 'ERR05B403',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

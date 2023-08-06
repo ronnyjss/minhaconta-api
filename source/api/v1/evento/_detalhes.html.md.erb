@@ -1,0 +1,106 @@
+## <b class="tagget">GET</b> Detalhes do Evento
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/beneficiario/'
+            . $objParametro->url->beneficiario
+            . '/evento/'
+            . $objParametro->url->evento,
+Conteudo
+
+parametro_url = <<-Conteudo
+        'beneficiario' => '224122d4f831405790df20f3b4e3677f',
+        'evento'       => 'e7917a9d7823f29274c64604398832ea',
+Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'get',
+    descricao: 'Para detalhes de um evento',
+    url: url,
+    parametro_url: parametro_url
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'evento',
+    codigo: 201,
+    mensagens: ['SUC0O5K01'],
+    itens: [{
+        id: 'e7917a9d7823f29274c64604398832ea',
+        servico: 'cobranca',
+        disparo: [
+            '07/01/2023T07:05',
+            '07/01/2023T07:10',
+            '07/01/2023T07:15',
+        ],
+        recebido: '07/01/2023T07:15',
+        iten: {
+            id: 'd67549df30f4395874e6ab66e08cc9e2',
+            cliente: 'e3eb01524dd35282c9910a9473c34e8f',
+            valor: 300.00,
+            vencimento: '25/01/2023',
+            data: {
+                adicionado: '02/01/2023T12:45',
+                atualizado: '03/01/2023T16:02',
+                pago: '07/01/2023T00:00',
+            },
+            status: 'pago',
+            descricao: 'Primeira Mensalidade - Antonio Vitor Nunes',
+            referencia: '72568',
+            desconto: [
+                valor: 100.00,
+                limite: '25/01/2023'
+            ],
+            rateio: [
+                {
+                    favorecido: '33ef65d0ebee16d2a4978fb2b1cb48bf',
+                    porcentagem: 12
+                },
+                {
+                    favorecido: 'c3211bf3836cb627f52311d723381fc7',
+                    porcentagem: 35
+                },
+                {
+                    favorecido: '57624e8d37e18ac77b254ac004a8ab0d',
+                    porcentagem: 1
+                }
+            ]
+        }
+    }]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'evento',
+    codigo: 401,
+    mensagens: ['ERR03B504']
+} %>
+
+<code><%= current_page.data.url %>/v1/beneficiario/<b>{beneficiario}</b>/evento/<b>{evento}</b></code>
+
+Um evento é uma ação ou mudança que ocorre em sua conta, alteração de situação de cobranças, alterações em informações de contato ou alterações em suas configurações de gatilho.
+Esse recurso fornece informações detalhadas sobre um evento específico, como data e hora em que o evento ocorreu, tipo de evento e outras informações relevantes.
+
+Esse recurso é útil para casos em que deseja obter informações detalhadas sobre um evento específico, como para fins de auditoria ou para entender melhor as ações realizadas no beneficiario.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+beneficiario | Esse parâmetro indica o ID do beneficiário.
+evento       | Identificador único do evento.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC0O5K01',
+
+        'ERR0KB801',
+
+        'ERR01B802',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

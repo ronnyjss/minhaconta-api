@@ -1,0 +1,77 @@
+## <b class="tagget">GET</b> Receber detalhes
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/cliente/'
+            . $objParametro->url->cliente,
+Conteudo
+
+parametro_url = <<-Conteudo
+        'cliente' => 'e3eb01524dd35282c9910a9473c34e8f',
+Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'get',
+    descricao: 'Para receber os detalhes sobre o cliente',
+    url: url,
+    parametro_url: parametro_url
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'cliente',
+    codigo: 200,
+    mensagens: ['SUC045K01'],
+    itens: [{
+        id: "e3eb01524dd35282c9910a9473c34e8f",
+        cpf: "752.073.050-69",
+        nome: "Antonio Vitor Nunes",
+        email: "antonio_nunes@i9pneus.com.br",
+        contato: "(54) 98330-2382",
+        endereco: {
+            cep: "95050-290",
+            logradouro: "Rua Mário Behring",
+            numero: "871",
+            complemento: nil,
+            bairro: "Jardim América",
+            cidade: 4305108,
+        },
+        data: {
+            aniversario: '10/05/1955',
+            criado: '01/01/2023 04:34:00',
+            atualizado: '03/01/2023 04:34:00',
+        }
+    }]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'cliente',
+    codigo: 404,
+    mensagens: ['ERR04B801']
+} %>
+
+<code><%= current_page.data.url %>/cliente/<b>{cliente}</b></code>
+
+Responsável por retornar informações detalhadas sobre um cliente(pagador) específico cadastrado no banco de dados da API do Minhaconta.
+Para acessar os detalhes de um cliente, é necessário fornecer o ID do cliente, que é um código único gerado pelo sistema ao cadastrar o cliente.
+Esse recurso retorna informações como nome completo, CPF ou CNPJ, e-mail, telefone, endereço e outras informações de contato do cliente.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+cliente | MD5 de identificação do cliente.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC045K01',
+
+        'ERR04B801',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

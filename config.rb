@@ -54,6 +54,8 @@ configure :build do
   # activate :gzip
 end
 
+activate :directory_indexes
+
 # Deploy Configuration
 # If you want Middleman to listen on a different port, you can set that below
 set :port, 4567

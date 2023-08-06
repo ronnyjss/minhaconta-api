@@ -1,0 +1,60 @@
+<%
+    if !defined?(paginacao)
+        paginacao = {}
+    end
+
+    if !defined?(mensagens)
+        mensagens = []
+    end
+
+    if !defined?(erro)
+        erro = false
+    end
+
+    if !defined?(filtro)
+        filtro = nil
+    end
+
+    if !defined?(ordenacao)
+        ordenacao = nil
+    end
+
+    if !defined?(itens)
+        itens = []
+    end
+
+    erroDados = {
+        erro: erro,
+        mensagens: [],
+        dados: {
+            recurso: servico,
+            filtro: filtro,
+            paginacao: {
+                skip: paginacao.key?(:skip) ? paginacao.skip : 0,
+                top: paginacao.key?(:top) ? paginacao.top : 100
+            },
+            ordenacao: ordenacao,
+            total: itens.count,
+            itens: itens
+        }
+    }
+
+    mensagens.each do |codigo|
+        if defined?(current_page.data.ems_sucesso[codigo].mensagem)
+            erroDados[:mensagens].push(
+                codigo: codigo,
+                mensagem: current_page.data.ems_sucesso[codigo].mensagem
+            )
+        elsif defined?(current_page.data.ems_erro[codigo].mensagem)
+            erroDados[:mensagens].push(
+                codigo: codigo,
+                mensagem: current_page.data.ems_erro[codigo].mensagem
+            )
+        end
+    end
+%>
+> <b class="taghttp<%= erro ? 'vermelho' : 'verde'  %>"><%= codigo %></b> Exemplo de resposta em caso de <%= erro ? 'erro' : 'sucesso'  %>:
+
+```json
+<%= JSON.pretty_generate(erroDados).gsub(/\[[\n\s]+\]/, '[]') %>
+```

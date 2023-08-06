@@ -1,0 +1,133 @@
+## <b class="tagput">PUT</b> Atualizar informações
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/cliente/'
+            . $objParametro->url->cliente,
+Conteudo
+
+parametro_url = <<-Conteudo
+        'cliente' => 'e3eb01524dd35282c9910a9473c34e8f',
+Conteudo
+
+parametro_corpo = <<-Conteudo
+        'contato'         => '(84) 3255-0178',
+        'endereco'        => [
+            'numero'      => 'Bloco D, AP 105',
+            'complemento' => 'Condomínio Américas',
+        ],
+Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'put',
+    descricao: 'Para atualizar o cadastro do cliente',
+    url: url,
+    parametro_url: parametro_url,
+    parametro_corpo: parametro_corpo
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'cliente',
+    codigo: 200,
+    mensagens: ['SUC065K01'],
+    itens: [{
+        id: "e3eb01524dd35282c9910a9473c34e8f",
+        cpf: "752.073.050-69",
+        nome: "Antonio Vitor Nunes",
+        email: "antonio_nunes@i9pneus.com.br",
+        contato: "(84) 3255-0178",
+        endereco: {
+            cep: "95050-290",
+            logradouro: "Rua Mário Behring",
+            numero: "Bloco D, AP 105",
+            complemento: "Condomínio Américas",
+            bairro: "Jardim América",
+            cidade: 4305108,
+        },
+        data: {
+            nascimento: '10/05/1955',
+            criado: '01/01/2023 04:34:00',
+            atualizado: '04/01/2023 06:23:00',
+        }
+    }]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'cliente',
+    codigo: 400,
+    mensagens: ['ERR06B401']
+} %>
+
+<code><%= current_page.data.url %>/cliente/<b>{cliente}</b></code>
+
+Responsável por atualizar os dados de um cliente (pagador do boleto) específico cadastrado no banco de dados da API do Minhaconta.
+Para atualizar as informações de um cliente, é necessário fornecer o ID do cliente, que é um código único gerado pelo sistema ao cadastrar o cliente, e os dados que deseja atualizar.
+Os dados que podem ser atualizados incluem o CPF, o nome completo, o e-mail, o telefone, o endereço (incluindo CEP, logradouro, número, complemento, bairro e cidade) e a data de aniversário.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+cliente | MD5 de identificação do cliente.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+cpf        | Sim | String | CPF válido do cliente.
+nome       | Sim | String | Nome do cliente.
+email      | Sim | String | Email do cliente.
+contato    | Sim | String | Telefone cliente.
+endereco   | Sim | Objeto | Relação de dados, informada na tabela 'Endereço' abaixo.
+data       | Sim | Objeto | Relação de dados, informada na tabela 'Data' abaixo.
+    Conteudo
+} %>
+
+Endereço:
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    titulo: false,
+    conteudo: <<-Conteudo
+cep         | Sim | String | CEP com 8 digitos com separador
+logradouro  | Sim | String | Rua em que reside o cliente.
+numero      | Não | String | Número/Identificação da casa.
+complemento | Não | String | Complemento.
+bairro      | Sim | String | Bairro/Distrito/Comunidade dentro de uma cidade.
+cidade      | Sim | Int    | Código [IBGE](https://www.ibge.gov.br/explica/codigos-dos-municipios.php) da cidade.
+    Conteudo
+} %>
+
+Data:
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    titulo: false,
+    conteudo: <<-Conteudo
+nascimento | Sim | String | Data de nascimento do cliente.
+    Conteudo
+} %>
+
+<aside class="notice">
+    Lembrete - Em requisições de atualização(PUT), os parâmetros mesmo marcados como obrigatórios, podem ser omitidos, mais se declarados e enviados no corpo, devem possuir um valor, não podendo ser declarados como null ou vazios, caso contrario uma mensagem de erro sera retornada, informando que o parâmetro é obrigatório.
+</aside>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC065K01',
+
+        'ERR04B801',
+
+        'ERR06B401',
+
+        'ERR03B408', 'ERR03B409', 'ERR03B40A', 'ERR03B40B', 'ERR03B40C',
+        'ERR03B40D', 'ERR03B40E', 'ERR03B40F', 'ERR03B40G', 'ERR03B40H',
+        'ERR03B40I', 'ERR03B40J', 'ERR03B40K', 'ERR03B40L', 'ERR03B40M',
+        'ERR03B40N', 'ERR03B40O', 'ERR03B40P', 'ERR03B40Q', 'ERR03B40R',
+        'ERR03B40S', 'ERR03B40T', 'ERR03B40U', 'ERR03B40V', 'ERR03B40W',
+        'ERR03B40X', 'ERR03B40Y', 'ERR03B40Z', 'ERR03B410', 'ERR03B411',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

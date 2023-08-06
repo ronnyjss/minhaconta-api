@@ -1,0 +1,3 @@
+Assim como [Ordenar consulta](/v1/#ordenar-consulta), esta opção de Ordenação é suportada apenas quando o caminho do recurso proporciona um retorno de itens maior que **1**, geralmente satisfeito em recursos do tipo `GET Lista`.
+Utilizamos paginação baseada em deslocamento, por meio dos parâmetros de consulta de URL <code>top=<b>X</b></code> (registro máximo a retornar) e <code>skip=<b>Y</b></code> (números de registro a ser ignorados).
+Descrito de forma literal, <code>skip=<b>Y</b></code> significa pular as primeiras **Y** entradas e <code>top=<b>X</b></code> significa pegar as próximas **X** linhas procedentes das linhas ignoradas.

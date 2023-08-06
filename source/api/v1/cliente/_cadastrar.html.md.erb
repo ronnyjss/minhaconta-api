@@ -1,0 +1,117 @@
+## <b class="tagpost">POST</b> Cadastrar cliente
+
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'post',
+    descricao: 'Para cadastrar um novo cliente',
+    url: "\t\t\t   => '#{current_page.data.url}/cliente'\n",
+    parametro_corpo: <<-parametroCorpo
+        'cpf'        => '752.073.050-69',
+        'nome'       => 'Antonio Vitor Nunes',
+        'email'      => 'antonio_nunes@i9pneus.com.br',
+        'contato'    => '(54) 98330-2382',
+        'endereco'   => [
+            'cep'         => '95050-290',
+            'logradouro'  => 'Rua Mário Behring',
+            'numero'      => '871',
+            'complemento' => null,
+            'bairro'      => 'Jardim América',
+            'cidade'      => 4305108,
+        ],
+        'data' => [
+            'nascimento' => '10/05/1955'
+        ]
+    parametroCorpo
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'cliente',
+    codigo: 201,
+    mensagens: ['SUC035L01'],
+    itens: [{
+        id: "e3eb01524dd35282c9910a9473c34e8f",
+        cpf: "752.073.050-69",
+        nome: "Antonio Vitor Nunes",
+        email: "antonio_nunes@i9pneus.com.br",
+        contato: "(54) 98330-2382",
+        endereco: {
+            cep: "95050-290",
+            logradouro: "Rua Mário Behring",
+            numero: "871",
+            complemento: nil,
+            bairro: "Jardim América",
+            cidade: 4305108,
+        },
+        data: {
+            nascimento: '10/05/1955',
+            criado: '01/01/2023 04:34:00',
+            atualizado: '03/01/2023 04:34:00',
+        }
+    }]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'cliente',
+    codigo: 403,
+    mensagens: ['ERR03B403']
+} %>
+
+<code><%= current_page.data.url %>/cliente</code>
+
+Responsável por adicionar um novo cliente(pagador) ao banco de dados da API do Minhaconta.
+Para realizar o cadastro, é necessário fornecer os seguintes dados: nome completo, CPF, e-mail, telefone, endereço e outras informações de contato.
+Após o cadastro, o cliente poderá ser selecionado como cliente em futuras emissões de cobranças.
+É importante lembrar que é necessário estar autenticado para acessar esse recurso.
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+cpf        | Sim | String | CPF válido do cliente.
+nome       | Sim | String | Nome do cliente.
+email      | Sim | String | Email do cliente.
+contato    | Sim | String | Telefone cliente.
+endereco   | Sim | Objeto | Relação de dados, informada na tabela 'Endereço' abaixo.
+data       | Sim | Objeto | Relação de dados, informada na tabela 'Data' abaixo.
+    Conteudo
+} %>
+
+Endereço:
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    titulo: false,
+    conteudo: <<-Conteudo
+cep         | Sim | String | CEP com 8 digitos com separador
+logradouro  | Sim | String | Rua em que reside o cliente.
+numero      | Não | String | Número.
+complemento | Não | String | Complemento.
+bairro      | Sim | String | Bairro/Distrito/Comunidade dentro de uma cidade.
+cidade      | Sim | Int    | Código [IBGE](https://www.ibge.gov.br/explica/codigos-dos-municipios.php) da cidade.
+    Conteudo
+} %>
+
+Data:
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    titulo: false,
+    conteudo: <<-Conteudo
+nascimento | Sim | String | Data de nascimento do cliente.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC035L01',
+
+        'ERR03B408', 'ERR03B409', 'ERR03B40A', 'ERR03B40B', 'ERR03B40C',
+        'ERR03B40D', 'ERR03B40E', 'ERR03B40F', 'ERR03B40G', 'ERR03B40H',
+        'ERR03B40I', 'ERR03B40J', 'ERR03B40K', 'ERR03B40L', 'ERR03B40M',
+        'ERR03B40N', 'ERR03B40O', 'ERR03B40P', 'ERR03B40Q', 'ERR03B40R',
+        'ERR03B40S', 'ERR03B40T', 'ERR03B40U', 'ERR03B40V', 'ERR03B40W',
+        'ERR03B40X', 'ERR03B40Y', 'ERR03B40Z', 'ERR03B410', 'ERR03B411',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

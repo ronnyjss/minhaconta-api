@@ -1,0 +1,13 @@
+Exemplos:
+
+Todas as entradas de [cobranças](/v1/#listar-cobrancas) retornadas em ordem crescente quando classificadas pela propriedade de classificação:
+
+`/cobranca?ordenar=situacao`
+
+Igual ao exemplo acima, só que de forma ascendente:
+
+`/cobranca?ordenar=situacao asc`
+
+Igual a URI acima, exceto que a lista de [cobranças](/v1/#listar-cobrancas) é classificada em ordem decrescente pela propriedade `criado` da entrada de `data` relacionada:
+
+`/cobranca?ordenar=situacao,data.criado desc`

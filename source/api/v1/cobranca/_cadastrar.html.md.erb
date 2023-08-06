@@ -1,0 +1,163 @@
+## <b class="tagpost">POST</b> Gerar uma nova Cobrança
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/beneficiario/'
+            . $objParametro->url->beneficiario
+            . '/cobranca',
+Conteudo
+
+parametro_url = <<-Conteudo
+        'beneficiario' => '224122d4f831405790df20f3b4e3677f',
+Conteudo
+
+parametro_corpo = <<-Conteudo
+        'cliente'      => 'e3eb01524dd35282c9910a9473c34e8f',
+        'valor'        => 300.00,
+        'vencimento'   => '25/01/2023',
+        'descricao'    => 'Mensalidade 01/22 - Antonio Vitor Nunes',
+        'referencia'   => '72568',
+        'desconto' => [
+            'valor'  => 100.00,
+            'limite' => '25/01/2023'
+        ],
+        'rateio' => [
+            {
+                'favorecido': '33ef65d0ebee16d2a4978fb2b1cb48bf',
+                'porcentagem': 12
+            },
+            {
+                'favorecido': 'c3211bf3836cb627f52311d723381fc7',
+                'porcentagem': 35
+            },
+            {
+                'favorecido': '57624e8d37e18ac77b254ac004a8ab0d',
+                'porcentagem': 1
+            }
+        ]
+    Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'post',
+    descricao: 'Para gerar uma nova cobrança',
+    url: url,
+    parametro_url: parametro_url,
+    parametro_corpo: parametro_corpo
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    codigo: 201,
+    mensagens: ['SUC085L01'],
+    servico: 'cobranca',
+    itens: [{
+        id: 'd67549df30f4395874e6ab66e08cc9e2',
+        cliente: 'e3eb01524dd35282c9910a9473c34e8f',
+        valor: 300.00,
+        vencimento: '25/01/2023',
+        data: {
+            adicionado: '02/01/2023T12:45',
+            atualizado: '02/01/2023T12:45',
+        },
+        status: 'pendente',
+        descricao: 'Mensalidade 01/22 - Antonio Vitor Nunes',
+        referencia: '72568',
+        desconto: [
+            valor: 100.00,
+            limite: '25/01/2023'
+        ],
+        rateio: [
+            {
+                favorecido: '33ef65d0ebee16d2a4978fb2b1cb48bf',
+                porcentagem: 12
+            },
+            {
+                favorecido: 'c3211bf3836cb627f52311d723381fc7',
+                porcentagem: 35
+            },
+            {
+                favorecido: '57624e8d37e18ac77b254ac004a8ab0d',
+                porcentagem: 1
+            }
+        ]
+    }]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    codigo: 400,
+    mensagens: ['ERR08B40A', 'ERR08B40F', 'ERR08B40K'],
+    servico: 'cobranca',
+    itens: []
+} %>
+
+<code><%= current_page.data.url %>/beneficiario/<b>{beneficiario}</b>/cobranca</code>
+
+Responsável por gerar uma nova cobrança no sistema da API do Minhaconta.
+Para gerar uma cobrança, é necessário fornecer alguns dados no corpo da requisição, conforme o exemplo apresentado acima.
+Os dados incluem o ID do cliente (cliente que vai receber o boleto), o valor da cobrança, a data de vencimento, a descrição da cobrança, uma referência (opcional) e, opcionalmente, o valor de desconto e o rateio da cobrança entre os favorecidos (parceiros da empresa).
+O rateio é uma forma de dividir o valor da cobrança entre os favorecidos de acordo com porcentagens pré-definidas.
+
+É importante lembrar que é necessário estar autenticado para acessar esse recurso.
+Além disso, é importante observar que os IDs do cliente e favorecido devem corresponder a IDs válidos de clientes cadastrados no banco de dados da API do Minhaconta.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+beneficiario | esse parâmetro indica o ID do cliente (favorecido) que vai receber parte do valor da cobrança. É um código único gerado pelo sistema ao cadastrar o cliente no banco de dados da API do Minhaconta. É necessário passar esse parâmetro no URI da requisição para que o sistema saiba quem está gerando a cobrança.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+cliente    | Sim | String | o ID do cliente que vai receber o boleto. É um código único gerado pelo sistema ao cadastrar o cliente no banco de dados da API do Minhaconta.
+valor      | Sim | Double | o valor da cobrança. Deve ser informado em formato de número, com duas casas decimais.
+vencimento | Sim | String | a data de vencimento da cobrança. Deve ser informado no formato 'dd/mm/aaaa'.
+descricao  | Sim | String | a descrição da cobrança. Pode ser usado para fornecer informações adicionais sobre o pagamento, como o período de cobrança ou o serviço prestado.
+referencia | Não | String | parâmetro opcional, usado para fornecer uma referência para a cobrança. Pode ser um número ou uma string.
+desconto   | Não | Object | parâmetro opcional, usado para informar o valor de desconto a ser aplicado na cobrança. Deve ser informado no formato de um objeto JSON descritos na tabela Desconto abaixo.
+rateio     | Não | Object | parâmetro opcional, usado para dividir o valor da cobrança entre os favorecidos de acordo com porcentagens pré-definidas. Deve ser informado no formato de um array de objetos JSON descritos na tabela Rateio abaixo.
+    Conteudo
+} %>
+
+Desconto:
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    titulo: false,
+    conteudo: <<-Conteudo
+valor  | Sim | Double | o valor do desconto a ser aplicado. Deve ser informado em formato de número, com duas casas decimais.
+limite | Sim | String | o prazo limite para a aplicação do desconto. Deve ser informado no formato 'dd/mm/aaaa'.
+    Conteudo
+} %>
+
+Rateio:
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    titulo: false,
+    conteudo: <<-Conteudo
+favorecido  | Sim | String | o ID do cliente (favorecido) que vai receber parte do valor da cobrança. É um código único gerado pelo sistema ao cadastrar o cliente no banco de dados da API do Minhaconta.
+porcentagem | Sim | int    | a porcentagem da cobrança que será destinada ao favorecido. Deve ser informada como um número inteiro.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC085L01',
+
+        'ERR08B401', 'ERR08B402',
+
+        'ERR04B801',
+
+        'ERR08B403', 'ERR08B404', 'ERR08B405', 'ERR08B406', 'ERR08B407',
+        'ERR08B408', 'ERR08B409', 'ERR08B40A', 'ERR08B40B', 'ERR08B40C',
+        'ERR08B40D', 'ERR08B40E', 'ERR08B40F', 'ERR08B40G', 'ERR08B40H',
+        'ERR08B40I', 'ERR08B40J', 'ERR08B40K', 'ERR08B40L', 'ERR08B40M',
+        'ERR08B40N', 'ERR08B40O', 'ERR08B40P', 'ERR08B40Q', 'ERR08B40R',
+        'ERR08B80S', 'ERR08B40T', 'ERR08B40U', 'ERR08B40V', 'ERR08B40W',
+        'ERR08B40X',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

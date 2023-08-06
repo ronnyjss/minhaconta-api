@@ -316,7 +316,7 @@ html, body {
 
 .content {
   // fixes webkit rendering bug for some: see #538
-  -webkit-transform: translateZ(0);
+  //-webkit-transform: translateZ(0);
   // to place content above the dark box
   position: relative;
   z-index: 30;
@@ -468,6 +468,7 @@ html, body {
     margin-top: 1.5em;
     margin-bottom: 1.5em;
     background: $aside-notice-bg;
+    color: $aside-notice-text;
     line-height: 1.6;
 
     &.warning {
@@ -510,6 +511,152 @@ html, body {
 // CODE SAMPLE STYLES
 ////////////////////////////////////////////////////////////////////////////////
 // This is all the stuff that appears in the right half of the page
+
+.tagpost,
+.tagput,
+.tagget,
+.tagdelete,
+.taghttpverde,
+.taghttpamarelo,
+.taghttpvermelho
+{
+    color: $nav-text;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.tagpost,
+.tagput,
+.tagget,
+.tagdelete
+{
+    padding: 2px 8px;
+    top: -2px;
+    position: relative;
+}
+
+.tagpost
+{
+    background: $aside-success-bg;
+}
+
+.tagput
+{
+    background: $aside-warning-bg;
+}
+
+.tagget
+{
+    background: $aside-notice-bg;
+}
+
+.tagdelete
+{
+    background: $aside-error-bg;
+}
+
+.taghttpverde,
+.taghttpamarelo,
+.taghttpvermelho,
+.taghttpazul
+{
+    padding: 2px 6px;
+}
+
+.taghttpverde
+{
+    background: $aside-success-bg;
+}
+
+.taghttpamarelo
+{
+    background: $aside-warning-bg;
+}
+
+.taghttpvermelho
+{
+    background: $aside-error-bg;
+}
+
+.taghttpazul
+{
+    background: $aside-notice-bg;
+}
+
+#toc .tagpost,
+#toc .tagput,
+#toc .tagget,
+#toc .tagdelete
+{
+    padding: 0 4px;
+    border-radius: 2px;
+}
+
+#toc a.active .tagpost,
+#toc a.active .tagput,
+#toc a.active .tagget,
+#toc a.active .tagdelete
+{
+    background: $main-bg;
+}
+
+#toc a.active .tagpost
+{
+    color: $nav-success-text;
+}
+
+#toc a.active .tagput
+{
+    color: $nav-warning-text;
+}
+
+#toc a.active .tagget
+{
+    color: $nav-notice-text;
+}
+
+#toc a.active .tagdelete
+{
+    color: $nav-error-text;
+}
+
+h2.post,
+h2.put,
+h2.get,
+h2.delete
+{
+    margin: 16px;
+    margin-right: calc(50% + 16px);
+    margin-top: 16px !important;
+    padding: 8px;
+    padding-bottom: 4px;
+    line-height: 20px;
+    border-radius: 6px;
+}
+
+h2.post
+{
+    background: rgba($aside-success-bg, 0.20);
+    border: 1px solid $aside-success-bg !important;
+}
+
+h2.put
+{
+    background: rgba($aside-warning-bg, 0.20);
+    border: 1px solid $aside-warning-bg !important;
+}
+
+h2.get
+{
+    background: rgba($aside-notice-bg, 0.20);
+    border: 1px solid $aside-notice-bg !important;
+}
+
+h2.delete
+{
+    background: rgba($aside-error-bg, 0.20);
+    border: 1px solid $aside-error-bg !important;
+}
 
 .content {
   &>div.highlight {
@@ -630,4 +777,80 @@ html, body {
 
 .copy-clipboard:hover {
   opacity: 0.8;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 10px;
+    height: 10px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background-color: #0ae;
+    background-image: -webkit-gradient(
+        linear,
+        0 0,
+        0 100%,
+        color-stop(.5, rgba(255, 255, 255, .2)),
+        color-stop(.5, transparent),
+        to(transparent)
+    );
+}
+
+.toc-wrapper .toc-link
+{
+    white-space: break-spaces;
+    line-height: initial;
+    padding: 8px 15px;
+    padding-right: 4px;
+}
+
+.toc-wrapper .toc-h2
+{
+    padding-left: 25px;
+}
+
+div.page-wrapper div.content a:link,
+div.page-wrapper div.content a:visited
+{
+    color: $nav-notice-text;
+}
+
+div.page-wrapper div.content a:hover
+{
+    color: #0C65E8;
+}
+
+div.page-wrapper div.content a:active
+{
+    color: #0D2FFF;
+}
+
+.content code
+{
+    font-size: 14px;
+}
+
+.content td
+{
+    vertical-align: middle !important;
+}
+
+table tr > td:first-child,
+table tr > th:first-child
+{
+    white-space: nowrap;
+}
+
+table tr > td:first-child
+{
+    font-family: Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace, serif;
 }

@@ -1,0 +1,764 @@
+---
+title: Documentação da API
+
+language_tabs: # Lista de linguagens suportadas https://git.io/vQNgJ
+  - php
+
+toc_footers:
+  - <a target="_blank" href='https://minhaconta.digital'>Docwiki desenvolvida pelo Minhaconta</a>
+  - <center>v<b>1.0.0</b></center>
+
+includes:
+  - errors
+  - registro_alteracoes
+
+search: true
+
+code_clipboard: true
+
+meta:
+  - name: description
+    content: Documentação para a API do Minhaconta
+
+senha: def-con MAD=01.01.22.
+
+url: "https://api.minhaconta.digital/v1"
+
+token_jwt: {
+    obter: {
+        tipo: "Bearer",
+        autorizacao: "0eXAiOiJhdXRvcml6YWNhbyIsInN1YiI6IjIyNDEyMmQ0ZjgzMTQwNTc5MGRmMjBmM2I0ZTM2NzdmIiwiY2xpZW50X2lkIjoiMTciLCJuYW1lIjoiRXdvcmsgQWdlbmNpYSBEaWdpdGFsIGx0ZGEiLCJpc3MiOiJtaW5oYWNvbnRhLmRpZ2l0YWwiLCJhdWQiOiJhcGkubWluaGFjb250YS5kaWdpdGFsIiwicm9sZXMiOlsiQWRtaW4iLCJTdXBlclVzdWFyaW8iXSwiaWF0IjoxNjcyNTQyMDAwLCJuYmYiOjE2NzI1NDIwMDAsImV4cCI6MTY3MjU0MzgwMH0.0YYdSu65xiI_GnNv8hTUkPIWXGbFMs8HQNejd2McAbVT64a_4mNSKfAEra_8zAxRFWEuEVYQg8JrZlmeaHkNPQ",
+        renovacao: "0eXAiOiJyZW5vdmFjYW8iLCJzdWIiOiIyMjQxMjJkNGY4MzE0MDU3OTBkZjIwZjNiNGUzNjc3ZiIsImNsaWVudF9pZCI6IjE3IiwibmFtZSI6IkV3b3JrIEFnZW5jaWEgRGlnaXRhbCBsdGRhIiwiaXNzIjoibWluaGFjb250YS5kaWdpdGFsIiwiYXVkIjoiYXBpLm1pbmhhY29udGEuZGlnaXRhbCIsInJvbGVzIjpbIkFkbWluIiwiU3VwZXJVc3VhcmlvIl0sImlhdCI6MTY3MjU0MjAwMCwibmJmIjoxNjcyNTQyMDAwLCJleHAiOjE2NzI1NzA4MDB9.pgJJX-77GfHpWMsSY4LMg_lHmbkhoTZZu5H4iSWqHw6tOPjON0ED470cW1Rq6s5DDptpxHLk8aQ8Ed0KxlrXQg",
+        validade: "2023-01-01T00:30:00.000-03:00"
+    },
+    renovar: {
+        tipo: "Bearer",
+        autorizacao: "0eXAiOiJhdXRvcml6YWNhbyIsInN1YiI6IjIyNDEyMmQ0ZjgzMTQwNTc5MGRmMjBmM2I0ZTM2NzdmIiwiY2xpZW50X2lkIjoiMTciLCJuYW1lIjoiRXdvcmsgQWdlbmNpYSBEaWdpdGFsIGx0ZGEiLCJpc3MiOiJtaW5oYWNvbnRhLmRpZ2l0YWwiLCJhdWQiOiJhcGkubWluaGFjb250YS5kaWdpdGFsIiwicm9sZXMiOlsiQWRtaW4iLCJTdXBlclVzdWFyaW8iXSwiaWF0IjoxNjcyNTQzNjgwLCJuYmYiOjE2NzI1NDM2ODAsImV4cCI6MTY3MjU0NTQ4MH0.s7WJC30V_7wwrULeo9sJ7ux7Mw69sX7c70F9blyo7XRum0zsEB8F4hqkg8MTkEuff1vCQ3xxCC_SSzu7WHNEEw",
+        renovacao: "0eXAiOiJyZW5vdmFjYW8iLCJzdWIiOiIyMjQxMjJkNGY4MzE0MDU3OTBkZjIwZjNiNGUzNjc3ZiIsImNsaWVudF9pZCI6IjE3IiwibmFtZSI6IkV3b3JrIEFnZW5jaWEgRGlnaXRhbCBsdGRhIiwiaXNzIjoibWluaGFjb250YS5kaWdpdGFsIiwiYXVkIjoiYXBpLm1pbmhhY29udGEuZGlnaXRhbCIsInJvbGVzIjpbIkFkbWluIiwiU3VwZXJVc3VhcmlvIl0sImlhdCI6MTY3MjU0MjAwMCwibmJmIjoxNjcyNTQyMDAwLCJleHAiOjE2NzI1NzA4MDB9.pgJJX-77GfHpWMsSY4LMg_lHmbkhoTZZu5H4iSWqHw6tOPjON0ED470cW1Rq6s5DDptpxHLk8aQ8Ed0KxlrXQg",
+        validade: "2023-01-01T00:58:00.000-03:00"
+    }
+}
+
+ems_sucesso: {
+
+    # Autenticação => Obter o Token
+    SUC015L01: {
+        codigo: "201",
+        mensagem: "Autorizado - Autenticação realizada com sucesso."
+    },
+    SUC015K02: {
+        codigo: "200",
+        mensagem: "Autorizado - Autenticação realizada com sucesso, sessão reestabelecida."
+    },
+
+    # Autenticação => Renovar o Token
+    SUC025L01: {
+        codigo: "201",
+        mensagem: "Autorizado - Renovação da autenticação realizada com sucesso."
+    },
+    SUC025K02: {
+        codigo: "200",
+        mensagem: "Autorizado - Sessão reestabelecida."
+    },
+
+    # Cliente => Cadastrar cliente
+    SUC035L01: {
+        codigo: "201",
+        mensagem: "Novo cliente cadastrado com sucesso."
+    },
+
+    # Cliente => Receber detalhes
+    SUC045K01: {
+        codigo: "200",
+        mensagem: "Detalhes do cliente obtidos com sucesso."
+    },
+
+    # Cliente => Listar clientes
+    SUC055K01: {
+        codigo: "200",
+        mensagem: "Clientes listados com sucesso."
+    },
+
+    # Cliente => Atualizar informações
+    SUC065K01: {
+        codigo: "200",
+        mensagem: "Informações do cliente atualizadas com sucesso."
+    },
+
+    # Cliente => Remover o cadastro
+    SUC075K01: {
+        codigo: "200",
+        mensagem: "Cadastro do cliente removido com sucesso."
+    },
+
+    # Cobrança => Gerar uma nova Cobrança
+    SUC085L01: {
+        codigo: "201",
+        mensagem: "Nova cobrança gerada com sucesso."
+    },
+
+    # Cobrança => Detalhes da Cobrança
+    SUC095K01: {
+        codigo: "200",
+        mensagem: "Cobrança encontrada com sucesso."
+    },
+
+    # Cobrança => Listar Cobranças
+    SUC0A5K01: {
+        codigo: "200",
+        mensagem: "Cobranças listadas com sucesso."
+    },
+
+    # Cobrança => Atualizar Cobrança
+    SUC0B5K01: {
+        codigo: "200",
+        mensagem: "Cobrança atualizada com sucesso."
+    },
+
+    # Cobrança => Cancelar uma Cobrança
+    SUC0C5K01: {
+        codigo: "200",
+        mensagem: "Cobrança cancelada com sucesso."
+    },
+
+    # Favorecido => Detalhes do Favorecido
+    SUC0D5K01: {
+        codigo: "200",
+        mensagem: "Detalhes do favorecido retornados com sucesso."
+    },
+
+    # Favorecido => Listar Favorecidos
+    SUC0E5K01: {
+        codigo: "200",
+        mensagem: "Favorecidos listados com sucesso."
+    },
+
+    # Rateio => Adicionar Favorecido
+    SUC0F5L01: {
+        codigo: "201",
+        mensagem: "Novo favorecido adicionado ao rateio com sucesso."
+    },
+
+    # Rateio => Listar Rateios
+    SUC0G5K01: {
+        codigo: "200",
+        mensagem: "Listagem de rateios realizada com sucesso."
+    },
+
+    # Rateio => Atualizar Rateio
+    SUC0H5K01: {
+        codigo: "200",
+        mensagem: "Rateio atualizado com sucesso."
+    },
+
+    # Rateio => Remover Favorecido
+    SUC0I5K01: {
+        codigo: "200",
+        mensagem: "Favorecido removido do rateio com sucesso."
+    },
+
+    # Gatilho => Cadastrar Gatilho
+    SUC0J5L01: {
+        codigo: "201",
+        mensagem: "Novo gatilho cadastrado com sucesso."
+    },
+
+    # Gatilho => Atualizar Gatilho
+    SUC0K5K01: {
+        codigo: "200",
+        mensagem: "Gatilho atualizado com sucesso."
+    },
+
+    # Gatilho => Detalhes do Gatilho
+    SUC0L5K01: {
+        codigo: "200",
+        mensagem: "Gatilho encontrado com sucesso."
+    },
+
+    # Gatilho => Listar Gatilhos
+    SUC0M5K01: {
+        codigo: "200",
+        mensagem: "Gatilhos listados com sucesso."
+    },
+
+    # Gatilho => Remover Gatilho
+    SUC0N5K01: {
+        codigo: "200",
+        mensagem: "Sucesso - Gatilho removido."
+    },
+
+    # Evento => Detalhes do Evento
+    SUC0O5K01: {
+        codigo: "200",
+        mensagem: "Sucesso - Evento encontrada."
+    },
+
+    # Evento => Listar Eventos
+    SUC0P5K01: {
+        codigo: "200",
+        mensagem: "Sucesso - Eventos listados com sucesso."
+    },
+
+}
+
+ems_erro: {
+
+    # Autenticação => Obter o Token
+    ERR01B401: {
+        codigo: "400",
+        mensagem: "Solicitação Inválida - O parâmetro 'chave' é obrigatório."
+    },
+    ERR01B802: {
+        codigo: "404",
+        mensagem: "Beneficiário não encontrado. O ID [X] fornecido não corresponde a nenhum Beneficiário cadastrado."
+    },
+    ERR01B503: {
+        codigo: "401",
+        mensagem: "Não autorizado - A chave fornecida está incorreta."
+    },
+    ERR01B704: {
+        codigo: "403",
+        mensagem: "Não autorizado - Beneficiário não está habilitado."
+    },
+
+    # Autenticação => Renovar o Token
+    ERR02B401: {
+        codigo: "400",
+        mensagem: "Solicitação Inválida - O parâmetro 'renovacao' é obrigatório."
+    },
+    ERR02B702: {
+        codigo: "403",
+        mensagem: "Solicitação Inválida - Token de renovação inválido."
+    },
+    ERR02B703: {
+        codigo: "403",
+        mensagem: "Não autorizado - O Token de renovação expirou."
+    },
+    ERR02B704: {
+        codigo: "403",
+        mensagem: "Não autorizado - Beneficiário não está habilitado."
+    },
+
+    # Cliente => Cadastrar cliente
+    ERR03B501: {
+        codigo: "401",
+        mensagem: "Não autorizado - Token de autenticação não informado."
+    },
+    ERR03B502: {
+        codigo: "401",
+        mensagem: "Não autorizado - Token de autenticação inválido."
+    },
+    ERR03B503: {
+        codigo: "401",
+        mensagem: "Não autorizado - Token de autenticação com assinatura inválida."
+    },
+    ERR03B504: {
+        codigo: "401",
+        mensagem: "Não autorizado - Token de autenticação com tempo de expiração ultrapassado, e não pode mais ser usado para acessar o recurso.."
+    },
+    ERR03B505: {
+        codigo: "401",
+        mensagem: "Não autorizado - Token de autenticação não é destinado a este serviço."
+    },
+    ERR03B506: {
+        codigo: "401",
+        mensagem: "Não autorizado - Token não lhe dá permissão para utilizar esse recurso."
+    },
+    ERR03B507: {
+        codigo: "401",
+        mensagem: "Não autorizado - Token não emitido pela EWdigital."
+    },
+
+    ERR03B408: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'cpf' informado, não é do tipo String."
+    },
+    ERR03B409: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'cpf' é obrigatório."
+    },
+    ERR03B40A: {
+        codigo: "400",
+        mensagem: "Formato inválido - O parâmetro 'cpf' não possui um formato de CPF valido (XXX.XXX.XXX-XX)."
+    },
+    ERR03B40B: {
+        codigo: "400",
+        mensagem: "CPF já utilizado por outro cliente."
+    },
+
+    ERR03B40C: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'nome' informado, não é do tipo String."
+    },
+    ERR03B40D: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'nome' é obrigatório."
+    },
+
+    ERR03B40E: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'email' informado, não é do tipo String."
+    },
+    ERR03B40F: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'email' é obrigatório."
+    },
+    ERR03B40G: {
+        codigo: "400",
+        mensagem: "Formato inválido - O parâmetro 'email' não possui um formato de EMAIL valido (usuario@dominio.com)."
+    },
+
+    ERR03B40H: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'contato' informado, não é do tipo String."
+    },
+    ERR03B40I: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'contato' é obrigatório."
+    },
+    ERR03B40J: {
+        codigo: "400",
+        mensagem: "Formato inválido - O parâmetro 'contato' não possui um formato de Telefone valido (XX) XXXX-XXXX ou (XX) XXXXX-XXXX."
+    },
+
+    ERR03B40K: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'nascimento' informado, não é do tipo String."
+    },
+    ERR03B40L: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'nascimento' é obrigatório."
+    },
+    ERR03B40M: {
+        codigo: "400",
+        mensagem: "A data informada no parâmetro 'nascimento' não pode ser maior que a data de hoje."
+    },
+    ERR03B40N: {
+        codigo: "400",
+        mensagem: "Formato inválido - O parâmetro 'nascimento' não possui um formato de Data valido (DD/MM/AAAA)."
+    },
+
+    ERR03B40O: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'endereco' informado, não é do tipo Objeto."
+    },
+    ERR03B40P: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'endereco' é obrigatório."
+    },
+
+    ERR03B40Q: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'data' informado, não é do tipo Objeto."
+    },
+    ERR03B40R: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'data' é obrigatório."
+    },
+
+    ERR03B40S: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'cep' informado, não é do tipo String."
+    },
+    ERR03B40T: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'cep' é obrigatório."
+    },
+    ERR03B40U: {
+        codigo: "400",
+        mensagem: "Formato inválido - O parâmetro 'cep' não possui um formato de Data valido (XXXXX-XXX)."
+    },
+
+    ERR03B40V: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'logradouro' informado, não é do tipo String."
+    },
+    ERR03B40W: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'logradouro' é obrigatório."
+    },
+
+    ERR03B40X: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'bairro' informado, não é do tipo String."
+    },
+    ERR03B40Y: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'bairro' é obrigatório."
+    },
+
+    ERR03B40Z: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'cidade' informado, não é do tipo Int."
+    },
+    ERR03B410: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'cidade' é obrigatório."
+    },
+    ERR03B411: {
+        codigo: "400",
+        mensagem: "ID IBGE não encontrado - O ID [X] do IBGE passado no parametro 'cidade', não foi encontrado na base de dados do IBGE."
+    },
+
+    # Cliente => Receber detalhes
+    ERR04B801: {
+        codigo: "404",
+        mensagem: "Cliente não encontrado - O ID [X] do cliente fornecido não corresponde a nenhum cliente cadastrado no banco de dados."
+    },
+
+    # Cliente => Listar clientes
+    ERR05B401: {
+        codigo: "400",
+        mensagem: "Erro de filtro - Os parâmetros de filtragem fornecidos são inválidos ou incorretos."
+    },
+    ERR05B402: {
+        codigo: "400",
+        mensagem: "Erro de ordenação - Os parâmetros de ordenação fornecidos são inválidos ou incorretos."
+    },
+    ERR05B403: {
+        codigo: "400",
+        mensagem: "Erro de paginação - Os parâmetros de paginação fornecidos são inválidos ou incorretos."
+    },
+
+    # Cliente => Atualizar informações
+    ERR06B401: {
+        codigo: "400",
+        mensagem: "Pelo menos 1 parâmetro deve ser informado no corpo da requisição."
+    },
+
+    # Cliente => Remover o cadastro
+    ERR07B401: {
+        codigo: "400",
+        mensagem: "Cadastro não pode ser removido - O cadastro do cliente não pode ser removido por estar vinculado a uma cobrança."
+    },
+
+    # Cobrança => Gerar uma nova Cobrança
+    ERR08B401: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'cliente' é obrigatório."
+    },
+    ERR08B402: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'cliente' informado, não é do tipo String."
+    },
+
+    ERR08B403: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'valor' é obrigatório."
+    },
+    ERR08B404: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'valor' informado, não é do tipo Double."
+    },
+    ERR08B405: {
+        codigo: "400",
+        mensagem: "Valor inválido - O parâmetro 'valor' fornecido não pode ser menor que 5.00."
+    },
+
+    ERR08B406: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'vencimento' é obrigatório."
+    },
+    ERR08B407: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'vencimento' informado, não é do tipo String."
+    },
+    ERR08B408: {
+        codigo: "400",
+        mensagem: "Formato inválido - O parâmetro 'vencimento' não possui um formato de Data valido (DD/MM/AAAA)."
+    },
+    ERR08B409: {
+        codigo: "400",
+        mensagem: "Valor inválido - O parâmetro 'vencimento' fornecido não pode ser menor que a data de hoje."
+    },
+
+    ERR08B40A: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'descricao' é obrigatório."
+    },
+    ERR08B40B: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'descricao' informado, não é do tipo String."
+    },
+
+    ERR08B40C: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'referencia' informado, não é do tipo String."
+    },
+
+    ERR08B40D: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'desconto' informado, não é do tipo Object."
+    },
+
+    ERR08B40E: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'desconto -> valor' é obrigatório."
+    },
+    ERR08B40F: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'desconto -> valor' informado, não é do tipo Double."
+    },
+    ERR08B40G: {
+        codigo: "400",
+        mensagem: "Valor inválido - O parâmetro 'desconto -> valor' fornecido não pode ser menor que 0.01."
+    },
+    ERR08B40H: {
+        codigo: "400",
+        mensagem: "Valor inválido - O parâmetro 'desconto -> valor' fornecido não pode ser maior que o valor da cobrança."
+    },
+
+    ERR08B40I: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'desconto -> limite' é obrigatório."
+    },
+    ERR08B40J: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'desconto -> limite' informado, não é do tipo String."
+    },
+    ERR08B40K: {
+        codigo: "400",
+        mensagem: "Formato inválido - O parâmetro 'desconto -> limite' não possui um formato de Data valido (DD/MM/AAAA)."
+    },
+    ERR08B40L: {
+        codigo: "400",
+        mensagem: "Valor inválido - O parâmetro 'desconto -> limite' fornecido não pode ser menor que a data de hoje."
+    },
+    ERR08B40M: {
+        codigo: "400",
+        mensagem: "Valor inválido - O parâmetro 'desconto -> limite' fornecido não pode ser maior que a data de vencimento da cobrança."
+    },
+
+    ERR08B40N: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'rateio' informado, não é do tipo Object."
+    },
+    ERR08B40O: {
+        codigo: "400",
+        mensagem: "Valor inválido - A soma das porcentagens informadas no parâmetro 'rateio' não pode ser menor que 1.00."
+    },
+    ERR08B40P: {
+        codigo: "400",
+        mensagem: "Valor inválido - A soma das porcentagens informadas no parâmetro 'rateio' não pode ser maior que 100.00."
+    },
+
+    ERR08B40Q: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'rateio -> favorecido' é obrigatório."
+    },
+    ERR08B40R: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'rateio -> favorecido' informado, não é do tipo String."
+    },
+    ERR08B80S: {
+        codigo: "404",
+        mensagem: "Favorecido não encontrado - O ID [X] do 'rateio -> favorecido' fornecido não corresponde a nenhum favorecido cadastrado."
+    },
+    ERR08B40T: {
+        codigo: "404",
+        mensagem: "Duplicidade de entrada - O ID [X] do 'rateio -> favorecido' foi informado de forma duplicada."
+    },
+
+    ERR08B40U: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'rateio -> porcentagem' é obrigatório."
+    },
+    ERR08B40V: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'rateio -> porcentagem' informado, não é do tipo Int."
+    },
+    ERR08B40W: {
+        codigo: "400",
+        mensagem: "Valor inválido - O parâmetro 'rateio -> porcentagem' fornecido não pode ser menor que 1."
+    },
+    ERR08B40X: {
+        codigo: "400",
+        mensagem: "Valor inválido - O parâmetro 'rateio -> porcentagem' fornecido não pode ser maior que 100."
+    },
+
+    # Cobrança => Detalhes da Cobrança
+    ERR09B801: {
+        codigo: "404",
+        mensagem: "Cobrança não encontrada. O ID [X] fornecido não corresponde a nenhuma cobrança cadastrada."
+    },
+    ERR09B502: {
+        codigo: "404",
+        mensagem: "Não autorizado - Beneficiário não possui permissão para visualizar essa cobrança."
+    },
+
+    # Cobrança => Atualizar Cobrança
+    ERR0BB501: {
+        codigo: "401",
+        mensagem: "Não autorizado - Beneficiário não possui permissão para atualizar essa cobrança."
+    },
+    ERR0BB402: {
+        codigo: "400",
+        mensagem: "Não é possível atualizar essa cobrança, a mesma já foi compensada."
+    },
+
+    # Cobrança => Cancelar uma Cobrança
+    ERR0CB401: {
+        codigo: "400",
+        mensagem: "Cobrança já cancelada."
+    },
+    ERR0CB402: {
+        codigo: "400",
+        mensagem: "Cobrança já paga."
+    },
+    ERR0CB503: {
+        codigo: "401",
+        mensagem: "Não autorizado - Beneficiário não possui permissão para cancelar a cobrança informada."
+    },
+
+    # Favorecido => Detalhes do Favorecido
+    ERR0DB801: {
+        codigo: "404",
+        mensagem: "Favorecido não encontrada. O ID [X] fornecido não corresponde a nenhum favorecido cadastrado."
+    },
+    ERR0DBX02: {
+        codigo: "429",
+        mensagem: "Limite de requisições atingido - O limite de requisições para esta rota foi atingido. Por favor, aguarde alguns minutos antes de tentar novamente."
+    },
+
+    # Favorecido => Listar Favorecidos
+    ERR0EB401: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - É obrigatório informar os filtros de pesquisa (cpf e conta)."
+    },
+    ERR0EB402: {
+        codigo: "400",
+        mensagem: "Formato inválido - O parâmetro 'cpf' não possui um formato de CPF valido (XXX.XXX.XXX-XX)."
+    },
+    ERR0EB403: {
+        codigo: "400",
+        mensagem: "Formato inválido - O parâmetro 'conta' não possui um formato de Conta Bancária valido (XXXXXX-X)."
+    },
+
+    # Rateio => Adicionar Favorecido
+    ERR0FB401: {
+        codigo: "400",
+        mensagem: "Valor inválido - A soma das porcentagens do 'rateio' não pode ser menor que 1.00."
+    },
+    ERR0FB402: {
+        codigo: "400",
+        mensagem: "Valor inválido - A soma das porcentagens do 'rateio' não pode ser maior que 100.00."
+    },
+
+    ERR0FB403: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'favorecido' é obrigatório."
+    },
+    ERR0FB404: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'favorecido' informado, não é do tipo String."
+    },
+    ERR0FB805: {
+        codigo: "404",
+        mensagem: "Duplicidade de entrada - O ID [X] do 'favorecido' foi informado de forma duplicada."
+    },
+
+    # Gatilho => Cadastrar Gatilho
+    ERR0JB401: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'url' é obrigatório."
+    },
+    ERR0JB402: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'url' informado, não é do tipo String."
+    },
+    ERR0JB403: {
+        codigo: "400",
+        mensagem: "Formato inválido - O parâmetro 'url' não possui um formato de URL valido."
+    },
+
+    ERR0JB404: {
+        codigo: "400",
+        mensagem: "Faltando parâmetro obrigatório - O parâmetro 'recurso' é obrigatório."
+    },
+    ERR0JB405: {
+        codigo: "400",
+        mensagem: "Tipo inválido - O parâmetro 'recurso' informado, não é do tipo Array."
+    },
+    ERR0JB806: {
+        codigo: "404",
+        mensagem: "Não encontrado - O recurso [x] informado, não é um recuso registrado."
+    },
+
+    ERR0JB407: {
+        codigo: "400",
+        mensagem: "Gatilho já cadastrado para essa URL."
+    },
+
+    # Gatilho => Atualizar Gatilho
+
+    # Gatilho => Detalhes do Gatilho
+
+    # Gatilho => Listar Gatilhos
+
+    # Gatilho => Remover Gatilho
+
+    # Rateio => Atualizar Gatilho
+    ERR0KB801: {
+        codigo: "404",
+        mensagem: "Não encontrado - O ID [X] fornecido não corresponde a nenhuma gatilho cadastrada."
+    },
+
+    # Evento => Detalhes do Evento
+    ERR0OB801: {
+        codigo: "404",
+        mensagem: "Não encontrado - O ID [X] fornecido não corresponde a nenhuma gatilho cadastrada."
+    },
+
+    # Evento => Listar Eventos
+    ERR0PB801: {
+        codigo: "404",
+        mensagem: "Não encontrado - O ID [X] fornecido não corresponde a nenhuma gatilho cadastrada."
+    },
+}
+---
+
+<!--
+Zlp xbl jhkh wlnhkh tpuoh alt zhunbl l zbvy,
+Wvyxbl lb tl wylvjbwlp lt mhgly ilt,
+L uâv lt zly tlsovy.
+---- Ronny
+200 -> 5K
+201 -> 5L
+
+304 -> 8G
+
+400 -> B4
+401 -> B5
+403 -> B7
+404 -> B8
+405 -> B9
+406 -> BA
+410 -> BE
+422 -> BQ
+429 -> BX
+
+500 -> DW
+503 -> DZ
+--->
+
+<%= partial "./api/v1/introducao.html.md.erb" %>
+
+<%= partial "./api/v1/autenticacao.html.md.erb" %>
+
+<%= partial "./api/v1/cliente.html.md.erb" %>
+
+<%= partial "./api/v1/cobranca.html.md.erb" %>
+
+<%= partial "./api/v1/favorecido.html.md.erb" %>
+
+<%= partial "./api/v1/rateio.html.md.erb" %>
+
+<%= partial "./api/v1/gatilho.html.md.erb" %>
+
+<%= partial "./api/v1/evento.html.md.erb" %>
+
+<%= partial "./api/v1/filtrar_consulta.html.md.erb" %>
+
+<%= partial "./api/v1/ordenar_consulta.html.md.erb" %>
+
+<%= partial "./api/v1/paginar_consulta.html.md.erb" %>

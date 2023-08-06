@@ -1,0 +1,17 @@
+## Operadores lógicos
+
+Operador | Descrição      | Exemplo
+-------- | ---------      | -------
+eq       | Igual          | /cliente?filtro=endereco/cidade eq '1600303'
+ne       | Não é igual    | /cliente?filtro=endereco/cidade ne '1600535'
+gt       | Maior que      | /cliente?filtro=nascimento gt '01/05/1960'
+ge       | Maior ou igual | /cliente?filtro=nascimento ge '01/05/1960'
+lt       | Menor que      | /cliente?filtro=nascimento lt '01/05/1960'
+le       | Menor ou igual | /cliente?filtro=nascimento le '01/05/1960'
+and      | E              | /cliente?filtro=nascimento le '01/05/1960' and nascimento gt '01/05/1960'
+or       | Ou             | /cliente?filtro=nascimento le '01/05/1960' or nascimento gt '01/05/1960'
+not      | Negação        | /cliente?filtro=not endswith(nome,'Nunes')
+
+<aside class="warning">
+    Observação - Os operadores <code>IS NULL</code> e <code>IS NOT NULL</code> não estão definidos. Em vez disso, use sua forma literal como <code>eq null</code> ou <code>ne null</code> respectivamente em comparações.
+</aside>

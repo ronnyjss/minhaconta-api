@@ -1,0 +1,86 @@
+<%
+    if !defined?(autenticar)
+        autenticar = true
+    end
+
+    if !defined?(url)
+        url = "'#{current_page.data.url}'"
+    end
+
+    if !defined?(parametro_url)
+        parametro_url = ''
+    else
+        parametro_url = <<-parametroUrl
+
+    // Parâmetros na Url
+    'url' => (object) [
+#{parametro_url}\t],
+    parametroUrl
+    end
+
+    if !defined?(parametro_corpo)
+        parametro_corpo = ''
+        parametro_corpo_post = ''
+    else
+        parametro_corpo_post = "\n\t\tCURLOPT_POSTFIELDS     => json_encode($objParametro->corpo),"
+        parametro_corpo = <<-parametroCorpo
+
+    // Parâmetros no Corpo
+    'corpo' => (object) [
+#{parametro_corpo}\t],
+    parametroCorpo
+    end
+
+    if autenticar
+        parametro_cabecalho = <<-parametroCabecalho
+
+    // Parâmetros na Cabeçalho
+    'cabecalho' => (object) [
+        'autorizacao' => '#{current_page.data.token_jwt.renovar.autorizacao}'
+    ],
+    parametroCabecalho
+    else
+        parametro_cabecalho = ''
+    end
+%>
+> <%= descricao %>, use esse código:
+
+```php
+$objCurl = curl_init();
+
+$objParametro = (object) [
+<%= "#{parametro_url}#{parametro_corpo}#{parametro_cabecalho}" %>
+];
+
+curl_setopt_array(
+    $objCurl,
+    [
+        CURLOPT_URL<%= "#{url}\t\t" %>CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_MAXREDIRS      => 10,
+        CURLOPT_TIMEOUT        => 30,
+        CURLOPT_CUSTOMREQUEST  => '<%= tipo.upcase %>',<%= parametro_corpo_post %>
+        CURLOPT_HTTPHEADER     => [
+            'Accept: application/json',
+            'Content-Type: application/json',<%= autenticar ? "\n\t\t\t'Authorization: Bearer ' . $objParametro->cabecalho->autorizacao," : '' %>
+        ]
+    ]
+);
+
+$strResposta   = curl_exec($objCurl);
+$strCurlErro   = curl_error($objCurl);
+$strHttpCodigo = curl_getinfo($objCurl, CURLINFO_HTTP_CODE);
+
+curl_close($objCurl);
+
+$arrResposta = [];
+if ($strCurlErro) {
+    exit('cURL Erro:' . $strCurlErro);
+} else {
+    $arrResposta = json_decode($strResposta, true);
+}
+
+unset($objParametro, $objCurl, $strCurlErro, $strResposta);
+
+print_r($strHttpCodigo);
+print_r($arrResposta);
+```

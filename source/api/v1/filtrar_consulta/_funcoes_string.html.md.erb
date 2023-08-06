@@ -1,0 +1,14 @@
+## Funções de String
+
+Função                                          | Tipo de Retorno | Exemplo
+------                                          | --------------- | -------
+substringof(string P0, string P1)               | Booleano        | /cobranca?filtro=substringof('Mensalidade', descricao) eq true
+endswith(string P0, string P1)                  | Booleano        | /cobranca?filtro=endswith(descricao, 'Nunes') eq true
+length(string P0)                               | Inteiro         | /cobranca?filtro=length(referencia) eq 19
+replace(string P0, string find, string replace) | Texto           | /cliente?filtro=replace(endereco.cep, '-', '') eq '95050290'
+substring(string P0, int pos)                   | Texto           | /cliente?filtro=substring(contato, 5) eq '98330-2382'
+substring(string P0, int pos, int length)       | Texto           | /cliente?filtro=substring(contato, 1, 3) eq '54'
+tolower(string P0)                              | Texto           | /cliente?filtro=tolower(nome) eq 'antonio vitor nunes'
+toupper(string P0)                              | Texto           | /cliente?filtro=toupper(nome) eq 'ANTONIO VITOR NUNES'
+trim(string P0)                                 | Texto           | /cliente?filtro=trim(endereco.bairro) eq 'Jardim América'
+concat(string P0, string P1)                    | Texto           | /cliente?filtro=concat(concat(endereco.logradouro, ', '), endereco.numero) eq 'Rua Mário Behring, 871'

@@ -1,0 +1,44 @@
+# Introdução
+
+<%# ```ascii
+          _____                    _____
+         /\    \                  /\    \
+        /::\    \                /::\____\
+       /::::\    \              /:::/    /
+      /::::::\    \            /:::/   _/___
+     /:::/\:::\    \          /:::/   /\    \       _          _ _
+    /:::/__\:::\    \        /:::/   /::\____\     | |__   ___| | | ___
+   /::::\   \:::\    \      /:::/   /:::/    /     | '_ \ / _ \ | |/ _ \
+  /::::::\   \:::\    \    /:::/   /:::/   _/___   | | | |  __/ | | (_) |
+ /:::/\:::\   \:::\    \  /:::/___/:::/   /\    \  |_| |_|\___|_|_|\___/
+/:::/__\:::\   \:::\____\|:::|   /:::/   /::\____\                     _     _
+\:::\   \:::\   \::/    /|:::|__/:::/   /:::/    / __      _____  _ __| | __| |
+ \:::\   \:::\   \/____/  \:::\/:::/   /:::/    /  \ \ /\ / / _ \| '__| |/ _` |
+  \:::\   \:::\    \       \::::::/   /:::/    /    \ V  V / (_) | |  | | (_| |
+   \:::\   \:::\____\       \::::/___/:::/    /      \_/\_/ \___/|_|  |_|\__,_|
+    \:::\   \::/    /        \:::\__/:::/    /
+     \:::\   \/____/          \::::::::/    /
+      \:::\    \               \::::::/    /
+       \:::\____\               \::::/    /
+        \::/    /                \::/    /
+         \/____/                  \/____/
+``` %>
+
+Bem-vindo à API do Minhaconta! Para utilizar nossos serviços, é necessário realizar a [autenticação](/v1/#autenticacao) para acesso à API.
+
+Com a API do Minhaconta, é possível [gerar](/v1/#gerar-uma-nova-cobranca), [atualizar](/v1/#atualizar-cobranca) ou [cancelar](/v1/#cancelar-uma-cobranca) cobranças referentes aos seus clientes ([clientes](/v1/#cliente)) no nosso banco de dados.
+Essas [cobranças](/v1/#cobranca) são destinadas aos [favorecidos](/v1/#favorecido), ou seja, às pessoas ou empresas que receberão o valor das cobranças.
+Além disso, a API do Minhaconta possibilita a integração das operações da sua empresa com os serviços do banco, permitindo a realização de pagamentos automáticos (chamados de [rateio de pagamento](/v1/#rateio)) a parceiros da empresa.
+
+- **Registro:** Serviço de emissão de boletos, que permite ao beneficiário receber o valor referente a serviços prestados mediante a apresentação de uma ordem de pagamento emitida ao cliente.
+- **Baixa:** [Cancelamento de boletos](/v1/#cancelar-uma-cobranca) registrados, que pode ser necessário em caso de reclamações do cliente ou revisão das condições.
+- **Alteração:** Processo de registro de instruções bancárias, como alteração de rateio, descontos e multas.
+- **Retorno:** Processamento automático de boletos sem a necessidade de processar um arquivo de retorno. De acordo com a configuração da conta de recebimento Minhaconta e o retorno da API, é possível realizar a compensação e a conciliação dos boletos recebidos de maneira automatizada.
+
+Além disso, a API do Minhaconta oferece a possibilidade de utilizar [gatilhos](/v1/#gatilho) e [eventos](/v1/#evento) para automatizar tarefas e tomar decisões baseadas em ações específicas.
+É possível também [filtrar](/v1/#filtrar-consulta) e [ordenar](/v1/#ordenar-consulta) consultas, bem como [paginá-las](/v1/#paginar-consulta) para facilitar a navegação.
+
+Em caso de erros, a API do Minhaconta retornará [códigos de erro HTTP](/v1/#codigo-de-erros-http) conforme a Especificação de Mensagens do Sistema (EMS), disposto em cada descrição de usabilidade de cada recurso.
+Abaixo, você encontrará mais detalhes sobre como configurar e emitir cobranças usando a API e outros processos relacionados a essas rotinas.
+
+Ao final, caso tenha mais dúvidas ou precise de mais informações, sinta-se à vontade para nos contactar.

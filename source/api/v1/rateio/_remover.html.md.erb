@@ -1,0 +1,71 @@
+## <b class="tagdelete">DELETE</b> Remover Favorecido
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/beneficiario/'
+            . $objParametro->url->beneficiario
+            . '/cobranca/'
+            . $objParametro->url->cobranca,
+Conteudo
+
+parametro_url = <<-Conteudo
+        'cobranca'     => 'd67549df30f4395874e6ab66e08cc9e2',
+        'beneficiario' => '224122d4f831405790df20f3b4e3677f',
+Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'delete',
+    descricao: 'Para cancelar uma cobrança',
+    url: url,
+    parametro_url: parametro_url
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'rateio',
+    codigo: 200,
+    mensagens: ['SUC0I5K01'],
+    itens: []
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'rateio',
+    codigo: 400,
+    mensagens: ['ERR0CB402']
+} %>
+
+<code><%= current_page.data.url %>/beneficiario/<b>{beneficiario}</b>/cobranca/<b>{cobranca}</b>/rateio/<b>{favorecido}</b></code>
+
+É uma rota da API do Minhaconta que permite remover um favorecido de um rateio já existente.
+Para isso, é necessário informar o ID do favorecido que deseja ser removido.
+Após a remoção, o favorecido não receberá mais a sua parte do rateio e o valor será redistribuído entre os demais favorecidos restantes.
+Caso o rateio não possua mais nenhum favorecido, ele será excluído automaticamente, e o valor será destinado ao beneficiário principal da cobrança.
+É importante lembrar que essa ação só pode ser realizada por um usuário autenticado e que possui as permissões necessárias para gerenciar os rateios da empresa.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+beneficiario | id do beneficiário responsável pelo lançamento da cobrança.
+cobranca     | id da cobrança que deseja visualizar os detalhes.
+favorecido   | Identificador único do favorecido.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC0I5K01',
+
+        'ERR0BB501', 'ERR0BB402',
+
+        'ERR01B802',
+
+        'ERR09B801',
+
+        'ERR0DB801',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

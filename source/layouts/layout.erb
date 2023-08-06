@@ -29,6 +29,7 @@ under the License.
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Google+Sans+Text:400,500,700,400i,500i,700i|Google+Sans:400,500|Google+Sans+Display:400|Product+Sans:400&amp;lang=en" rel="stylesheet">
     <% if current_page.data.key?('meta') %>
       <% current_page.data.meta.each do |meta| %>
         <meta
@@ -86,19 +87,19 @@ under the License.
       <% end %>
       <% if current_page.data.search %>
         <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
+          <input type="text" class="search" id="input-search" placeholder="Buscar">
         </div>
         <ul class="search-results"></ul>
       <% end %>
       <ul id="toc" class="toc-list-h1">
         <% toc_data(page_content).each do |h1| %>
           <li>
-            <a href="#<%= h1[:id] %>" class="toc-h1 toc-link" data-title="<%= h1[:title] %>"><%= h1[:content] %></a>
+            <a href="#<%= h1[:id].gsub(/^(post|put|get|delete)-/, '') %>" class="toc-h1 toc-link" data-title="<%= h1[:title] %>"><%= h1[:content] %></a>
             <% if h1[:children].length > 0 %>
               <ul class="toc-list-h2">
                 <% h1[:children].each do |h2| %>
                   <li>
-                    <a href="#<%= h2[:id] %>" class="toc-h2 toc-link" data-title="<%= h2[:title] %>"><%= h2[:content] %></a>
+                    <a href="#<%= h2[:id].gsub(/^(post|put|get|delete)-/, '') %>" class="toc-h2 toc-link" data-title="<%= h2[:title] %>"><%= h2[:content] %></a>
                   </li>
                 <% end %>
               </ul>

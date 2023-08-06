@@ -1,0 +1,68 @@
+## <b class="tagget">GET</b> Listar Gatilhos
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/beneficiario/'
+            . $objParametro->url->beneficiario
+            . '/gatilho',
+Conteudo
+
+parametro_url = <<-Conteudo
+        'beneficiario' => '224122d4f831405790df20f3b4e3677f',
+Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'get',
+    descricao: 'Para listar gatilhos',
+    url: url,
+    parametro_url: parametro_url
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'gatilho',
+    codigo: 200,
+    mensagens: ['SUC0M5K01'],
+    itens: [{
+        id: 'df61fa818758d774e27e1ff1dafde184',
+        url: 'https://ewdigital.com.br/minhaconta/gatilho-pagamentos',
+        recurso: [
+            'cobranca.situacao.pago'
+        ]
+    }]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'gatilho',
+    codigo: 404,
+    mensagens: ['ERR05B403']
+} %>
+
+<code><%= current_page.data.url %>/beneficiario/<b>{beneficiario}</b>/gatilho</code>
+
+Fornece uma lista de todos os gatilhos associados a um beneficiário específico. A partir da URL de acesso ao recurso, o sistema irá buscar todos os gatilhos associados ao beneficiário e retorna-los em uma lista.
+Essa funcionalidade é útil para casos em que deseja obter uma visão geral dos gatilhos associados ao seu beneficiário, e poder verificar se os gatilhos estão configurados de acordo com suas necessidades.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+beneficiario | id do beneficiário responsável pelo lançamento da cobrança.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/consultas.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC0M5K01',
+
+        'ERR01B802',
+
+        'ERR05B401', 'ERR05B402', 'ERR05B403',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

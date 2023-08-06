@@ -1,0 +1,102 @@
+## <b class="tagput">PUT</b> Atualizar Rateio
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/beneficiario/'
+            . $objParametro->url->beneficiario
+            . '/cobranca/'
+            . $objParametro->url->cobranca
+            . '/rateio',
+Conteudo
+
+parametro_url = <<-Conteudo
+        'cobranca'     => 'd67549df30f4395874e6ab66e08cc9e2',
+        'beneficiario' => '224122d4f831405790df20f3b4e3677f',
+Conteudo
+
+parametro_corpo = <<-Conteudo
+        {
+            'favorecido': '57624e8d37e18ac77b254ac004a8ab0d',
+            'porcentagem': 32
+        }
+    Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'post',
+    descricao: 'Para atualizar um favorecido no rateio da cobrança',
+    url: url,
+    parametro_url: parametro_url,
+    parametro_corpo: parametro_corpo
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'rateio',
+    codigo: 200,
+    mensagens: ['SUC0H5K01'],
+    itens: [
+        {
+            favorecido: '33ef65d0ebee16d2a4978fb2b1cb48bf',
+            porcentagem: 12
+        },
+        {
+            favorecido: 'c3211bf3836cb627f52311d723381fc7',
+            porcentagem: 35
+        },
+        {
+            favorecido: '57624e8d37e18ac77b254ac004a8ab0d',
+            porcentagem: 32
+        },
+        {
+            favorecido: 'e9276b931c56d11b087ad6e34ed454b0',
+            porcentagem: 8
+        }
+    ]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'rateio',
+    codigo: 400,
+    mensagens: ['ERR0DB801']
+} %>
+
+<code><%= current_page.data.url %>/beneficiario/<b>{beneficiario}</b>/cobranca/<b>{cobranca}</b>/rateio</code>
+
+É utilizado para atualizar as informações de um rateio existente.
+É possível atualizar as informações do favorecido, bem como a porcentagem da divisão do valor da cobrança.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+beneficiario | id do beneficiário responsável pelo lançamento da cobrança.
+cobranca     | id da cobrança que deseja visualizar os detalhes.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+favorecido  | Sim | String | o ID do cliente (favorecido) que vai receber parte do valor da cobrança. É um código único gerado pelo sistema ao cadastrar o cliente no banco de dados da API do Minhaconta.
+porcentagem | Sim | int    | a porcentagem da cobrança que será destinada ao favorecido. Deve ser informada como um número inteiro.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC0H5K01',
+
+        'ERR0DB801',
+
+        'ERR0FB401', 'ERR0FB402', 'ERR0FB403', 'ERR0FB404', 'ERR0FB805',
+
+        'ERR0BB501', 'ERR0BB402',
+
+        'ERR01B802',
+
+        'ERR09B801',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

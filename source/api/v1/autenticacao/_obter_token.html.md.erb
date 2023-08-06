@@ -1,0 +1,69 @@
+## <b class="tagpost">POST</b> Obter o Token
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/beneficiario/'
+            . $objParametro->url->beneficiario
+            . '/token',
+Conteudo
+
+parametro_url = <<-Conteudo
+        'beneficiario' => '224122d4f831405790df20f3b4e3677f',
+Conteudo
+
+parametro_corpo = <<-Conteudo
+        'chave' => '0*eN%UPzL*@NIV7fVF%R6afsL7bI$aV7',
+Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'post',
+    descricao: 'Para obter o Token de autenticação',
+    url: url,
+    parametro_url: parametro_url,
+    parametro_corpo: parametro_corpo,
+    autenticar: false
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'autenticacao',
+    codigo: 201,
+    mensagens: ['SUC015L01'],
+    itens: [current_page.data.token_jwt.obter]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'autenticacao',
+    codigo: 400,
+    mensagens: ['ERR01B401']
+} %>
+
+<code><%= current_page.data.url %>/beneficiario/<b>{beneficiario}</b>/autenticacao</code>
+
+Esta rota é utilizado para solicitar o token de autenticação, a partir de fornecer as credenciais de autenticação de um beneficiário.
+Esse token é usado para autenticar a identidade do beneficiário e garantir que ele tenha acesso apenas aos recursos e informações autorizadas.
+Ele é enviado no cabeçalho da solicitação da API para autenticar o beneficiário e conceder o acesso aos recursos solicitados.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+beneficiario | MD5 de identificação da empresa beneficiária.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+chave | Sim | Texto | Codigo secreto de autenticação.
+    Conteudo
+} %>
+
+<%= partial("./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC015L01', 'SUC015K02',
+        'ERR01B401', 'ERR01B802', 'ERR01B503', 'ERR01B704',
+    ]
+}) %>
+
+<aside class="notice">
+    Lembrete - um novo token de <code>autorizacao</code> e <code>renovacao</code> só serão criados, caso o token anterior possuir menos 5min restantes de expiração, caso contrario o token valido atual será retornado com código de reposta http 200, e EMS SUC00002.
+</aside>

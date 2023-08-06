@@ -1,0 +1,14 @@
+<%
+    if !defined?(titulo)
+        titulo = true
+    end
+
+    descricao = ''
+
+    if titulo
+        descricao = 'Esses são os parâmetros obrigatórios e opcionais que devem ser passados no corpo da requisição ao acessar essa rota. É importante lembrar que todos os parâmetros devem ser passados no formato de string ou objeto JSON, conforme descrito.'
+    end
+%>
+<%= titulo ? "### Parâmetros no Corpo\n\n#{descricao}\n\n" : '' %>Parâmetro | Obrigatório | Tipo | Descrição
+--------- | ----------- | ---- | ---------
+<%= conteudo %>

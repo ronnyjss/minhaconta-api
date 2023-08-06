@@ -1,0 +1,9 @@
+### Parâmetros no Cabeçalho
+
+Esses são os parâmetros obrigatórios que devem ser passados no cabeçalho da requisição ao acessar essa rota.
+É importante lembrar que esses parâmetros são necessários para garantir a segurança e autenticidade da requisição e, portanto, devem ser fornecidos corretamente.
+
+Parâmetro     | Descrição
+------------- | ---------
+Authorization | esse parâmetro é usado para autenticar o usuário na API do Minhaconta. Deve ser passado no formato 'Bearer <token>', onde '<token>' é o [token de autorização](/v1/#obter-o-token) fornecido pelo sistema após a autenticação do usuário. Ex: "Bearer <%= current_page.data.token_jwt.renovar.autorizacao[0...40] %>..."
+Content-Type  | esse parâmetro indica o tipo de conteúdo que será enviado na requisição. Deve ser passado com o valor 'application/json' para indicar que o corpo da requisição será enviado em formato JSON.

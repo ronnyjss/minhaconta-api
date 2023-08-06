@@ -1,0 +1,85 @@
+## <b class="tagpost">POST</b> Cadastrar Gatilho
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/beneficiario/'
+            . $objParametro->url->beneficiario
+            . '/gatilho',
+Conteudo
+
+parametro_url = <<-Conteudo
+        'beneficiario' => '224122d4f831405790df20f3b4e3677f',
+Conteudo
+
+parametro_corpo = <<-Conteudo
+        'url'     => 'https://ewdigital.com.br/minhaconta/gatilho-pagamentos',
+        'recurso' => [
+            'cobranca.situacao.pago'
+        ],
+    Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'post',
+    descricao: 'Para cadastrar um novo gatilho',
+    url: url,
+    parametro_url: parametro_url,
+    parametro_corpo: parametro_corpo
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'gatilho',
+    codigo: 201,
+    mensagens: ['SUC0J5L01'],
+    itens: [{
+        id: 'df61fa818758d774e27e1ff1dafde184',
+        url: 'https://ewdigital.com.br/minhaconta/gatilho-pagamentos',
+        recurso: [
+            'cobranca.situacao.pago'
+        ]
+    }]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'gatilho',
+    codigo: 400,
+    mensagens: ['ERR0JB403']
+} %>
+
+<code><%= current_page.data.url %>/beneficiario/<b>{beneficiario}</b>/gatilho</code>
+
+Permite o cadastro de uma url para receber notificações de eventos relacionados a cobranças e pagamentos em sua empresa.
+É importante destacar que os gatilhos serão acionados a cada 5 minutos, enviando todos os eventos ocorridos nesse intervalo de tempo.
+Isso garante um melhor desempenho e agilidade no processamento dessas notificações.
+Ao utilizar esse recurso, você pode escolher quais eventos deseja receber notificações, como por exemplo: cobrança paga, cobrança cancelada, nova cobrança emitida, entre outros.
+Ao cadastrar o gatilho, você pode configurar qual url deseja receber essas notificações e gerenciar as suas configurações de acordo com as necessidades da sua empresa.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+beneficiario | Esse parâmetro indica o ID do beneficiário.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+url     | Sim | String | URL para onde os eventos solicitados serão enviados.
+recurso | Sim | Array  | Array com os recursos que deseja acompanhar.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC0J5L01',
+
+        'ERR0JB401', 'ERR0JB402', 'ERR0JB403', 'ERR0JB404', 'ERR0JB405',
+        'ERR0JB806', 'ERR0JB407',
+
+        'ERR01B802',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

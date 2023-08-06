@@ -1,0 +1,75 @@
+## <b class="tagput">PUT</b> Renovar o Token
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/beneficiario/'
+            . $objParametro->url->beneficiario
+            . '/token',
+Conteudo
+
+parametro_url = <<-Conteudo
+        'beneficiario' => '224122d4f831405790df20f3b4e3677f',
+Conteudo
+
+parametro_corpo = <<-Conteudo
+        'renovacao' => '#{current_page.data.token_jwt.obter.renovacao}'
+Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'put',
+    descricao: 'Para renovar o Token de autenticação',
+    url: url,
+    parametro_url: parametro_url,
+    parametro_corpo: parametro_corpo,
+    autenticar: false
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'autenticacao',
+    codigo: 201,
+    mensagens: ['SUC025L01'],
+    itens: [current_page.data.token_jwt.renovar]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'autenticacao',
+    codigo: 403,
+    mensagens: ['ERR02B703']
+} %>
+
+<code><%= current_page.data.url %>/beneficiario/<b>{beneficiario}</b>/autenticacao</code>
+
+A rota de renovação de token de autenticação é uma parte da API de autenticação.
+Ela é responsável por gerar um novo token de autenticação quando o token atual estiver prestes a expirar.
+
+Quando o tempo de expiração do token se aproxima, é possivel utilizar a rota de renovação de token para obter um novo token válido.
+Isso é importante, pois garante que não precise fazer login novamente toda vez que o token expira, o que pode ser inconveniente para o cliente e aumentar a carga no sistema.
+
+Para utilizar a rota de renovação de token, envie o token de renovação atualmente valido no corpo da requisição.
+O sistema verifica o token, e se for válido, gera um novo token de autenticação com um novo tempo de expiração.
+Esse novo token é então devolvido na solicitação, armazene-o e o utilize em solicitações subsequentes.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+beneficiario | MD5 de identificação da empresa beneficiária.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_corpo.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+renovacao | Sim | Texto | Token de renovação da autenticação.
+    Conteudo
+} %>
+
+<%= partial("./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC025L01', 'SUC025K02',
+        'ERR02B401', 'ERR02B402', 'ERR02B703', 'ERR02B704',
+    ]
+}) %>
+
+<aside class="notice">
+    Lembrete - um novo token de <code>autorizacao</code> e <code>renovacao</code> só serão criados, caso o token anterior possuir menos 5min restantes de expiração, caso contrario o token valido atual será retornado com código de reposta http 200, e EMS SUC00004.
+</aside>

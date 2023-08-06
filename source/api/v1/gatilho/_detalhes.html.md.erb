@@ -1,0 +1,69 @@
+## <b class="tagget">GET</b> Detalhes do Gatilho
+
+<%
+url = <<-Conteudo
+ =>\n              '#{current_page.data.url}/beneficiario/'
+            . $objParametro->url->beneficiario
+            . '/gatilho/'
+            . $objParametro->url->gatilho,
+Conteudo
+
+parametro_url = <<-Conteudo
+        'beneficiario' => '224122d4f831405790df20f3b4e3677f',
+        'gatilho'      => 'df61fa818758d774e27e1ff1dafde184',
+Conteudo
+%>
+<%= partial "./api/v1/tema/codigo.html.md.erb", locals: {
+    tipo: 'get',
+    descricao: 'Para detalhes de um gatilho',
+    url: url,
+    parametro_url: parametro_url
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: false,
+    servico: 'gatilho',
+    codigo: 201,
+    mensagens: ['SUC0L5K01'],
+    itens: [{
+        id: 'df61fa818758d774e27e1ff1dafde184',
+        url: 'https://ewdigital.com.br/minhaconta/gatilho-pagamentos',
+        recurso: [
+            'cobranca.situacao.pago'
+        ]
+    }]
+} %>
+
+<%= partial "./api/v1/tema/_retorno.html.md.erb", locals: {
+    erro: true,
+    servico: 'cobranca',
+    codigo: 404,
+    mensagens: ['ERR0KB801']
+} %>
+
+<code><%= current_page.data.url %>/beneficiario/<b>{beneficiario}</b>/gatilho/<b>{gatilho}</b></code>
+
+Fornece informações detalhadas sobre um gatilho específico associado a um beneficiário específico.
+Retorna informações como "id" identificador único do gatilho, "url" é a URL associada ao gatilho e "recurso" é um array com os recursos associados a este gatilho.
+
+<%= partial "./api/v1/tema/parametro_uri.html.md.erb", locals: {
+    conteudo: <<-Conteudo
+beneficiario | Esse parâmetro indica o ID do beneficiário.
+gatilho      | Identificador único do gatilho.
+    Conteudo
+} %>
+
+<%= partial "./api/v1/tema/parametro_cabecalho.html.md.erb" %>
+
+<%= partial "./api/v1/tema/ems.html.md.erb", locals: {
+    mensagens: [
+        'SUC0L5K01',
+
+        'ERR0KB801',
+
+        'ERR01B802',
+
+        'ERR03B501', 'ERR03B502', 'ERR03B503', 'ERR03B504', 'ERR03B505',
+        'ERR03B506', 'ERR03B507',
+    ]
+} %>

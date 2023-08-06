@@ -80,9 +80,12 @@
         if (window.history.replaceState) {
           window.history.replaceState(null, "", best);
         }
-        var thisTitle = $best.data("title");
+        var thisTitle = $best.data('title');
         if (thisTitle !== undefined && thisTitle.length > 0) {
-          document.title = thisTitle.replace(htmlPattern, "") + " – " + originalTitle;
+          document.title =
+              thisTitle.replace(htmlPattern, '').replace(/^(post|put|get|delete) /i, '')
+            + ' – '
+            + originalTitle;
         } else {
           document.title = originalTitle;
         }
